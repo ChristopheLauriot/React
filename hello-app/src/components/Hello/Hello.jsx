@@ -1,5 +1,6 @@
 import React from 'react'
 
+// function Hello(props) {
 function Hello({ firstName, name }) {
     // const {firstName,name}= props
     // console.log(props)
