@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-function TodoList({todos,isLoading,doDelete}) {
+function TodoList() {
     console.log("render TodoList")
+    const todos = useSelector((state) => state.todoListState.todos)
+    const dispatch = useDispatch()
+
+    const isLoading = false
 
 
+    useEffect(() => {
+        dispatch()
+
+    }, [])
     return (
         <>
             <h2>Todo List</h2>
@@ -26,7 +35,9 @@ function TodoList({todos,isLoading,doDelete}) {
                     </thead>
                     <tbody>
                         {todos.map(todo =>
-                            <TodoTableRow key={todo.id} todo={todo} doDelete={doDelete}/>
+                            // <TodoTableRow key={todo.id} todo={todo} doDelete={doDelete}/>
+                            <TodoTableRow key={todo.id} todo={todo}/>
+
 
                         )}
                     </tbody>
