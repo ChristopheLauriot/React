@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from 'react'
+import { useState,useMemo } from 'react'
 
 
 function wait(t){
@@ -9,6 +8,8 @@ function wait(t){
 }
 
 function toUpper(v){
+    console.log(v)
+    wait(500)
     return v.toUpperCase()
 }
 
@@ -29,7 +30,11 @@ function Concat() {
                 break
         }
     }
-    const upperName = toUpper(name)
+
+    // const upperName = toUpper(name)
+    const upperName = useMemo(() => toUpper(name),[name] )
+
+
     return (
         <>
             <h2>Concat</h2>
