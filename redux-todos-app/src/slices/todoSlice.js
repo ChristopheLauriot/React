@@ -1,36 +1,35 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 
 const initialState = {
-    todos: [
-        {
-            "userId": 1,
-            "id": 3,
-            "title": "fugiat veniam minus",
-            "completed": false
-        },
-        {
-            "userId": 1,
-            "id": 4,
-            "title": "et porro tempora",
-            "completed": true
-        },
-        {
-            "userId": 1,
-            "id": 8,
-            "title": "quo adipisci enim quam ut ab",
-            "completed": true
-        },
-    ],
+    todos: [],
+    isLoading:false
 }
 
-export const todoSlice = createSlice({
+
+ const getTodosAsync = createAsyncThunk("todoList/getTodosAsync",async ()=>{
+    const response = await fetch(import.meta.env.VITE_URL_TODOS)
+    const data = await response.json()
+    return data
+
+})
+
+ const todoSlice = createSlice({
     name: 'todoList',
     initialState,
     reducers: {
-
+        loading: (state) => {
+            state.isLoading = !state.isLoading
+          },
     },
+    extraReducers:(builder)=>{
+        builder.addCase(getTodosAsync.fulfilled,(state,action)=>{
+            state.todos = action.payload
+            state.isLoading = false
+        })
+    }
 })
 
-export const { } = todoSlice.actions
+export const {loading } = todoSlice.actions
 
 export default todoSlice.reducer
+export {todoSlice,getTodosAsync}

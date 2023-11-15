@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { getTodosAsync,loading } from '../../slices/todoSlice'
 
 function TodoList() {
     console.log("render TodoList")
     const todos = useSelector((state) => state.todoListState.todos)
+    const isLoading = useSelector((state) => state.todoListState.isLoading)
     const dispatch = useDispatch()
-
-    const isLoading = false
-
-
+    console.log(isLoading)
     useEffect(() => {
-        dispatch()
+        dispatch(loading())
+        // dispatch(getTodosAsync())    
 
     }, [])
     return (
